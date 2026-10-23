@@ -1,0 +1,94 @@
+# Test Summary Report: SauceDemo
+
+## 1. Overview
+| | |
+|---|---|
+| Application | SauceDemo (https://www.saucedemo.com) |
+| Test period | <start date> to 23-Oct-2026 |
+| Tester | Ravuri Mohana Gowri|
+| Test type | Manual functional testing |
+
+## 2. Scope
+**Tested:** login, inventory, sorting, product details, cart, checkout, logout, reset app state, direct URL access.
+**Not tested:** performance/load, security penetration, API, accessibility, mobile apps.
+
+## 3. Environment
+OS: <Windows 11> | Browser: Chrome <version> | Users: standard_user, locked_out_user, problem_user, error_user
+
+## 4. Test Execution Summary
+| Metric | Count |
+|---|---|
+| Total test cases | 40 |
+| Executed | 40 (100%) |
+| Passed | 34 |
+| Failed | 6 |
+| Blocked | 0 |
+| Not Run | 0 |
+| **Pass rate** | **85.0%** |
+
+Test types: Positive 22, Negative 13, Boundary 5.
+
+Failed test cases: TC26, TC27, TC37, TC38, TC39, TC40.
+
+## 5. Defect Summary
+| Severity | Count |
+|---|---|
+| Critical | 2 |
+| Major | 4 |
+| Minor | 0 |
+| Trivial | 0 |
+| **Total** | **6** |
+
+Status after retest: Closed 4 | Reopened 2 | Open 0
+
+| Module | Defects |
+|---|---|
+| Cart | 2 (KAN-x, KAN-x) |
+| Inventory | 2 (KAN-x, KAN-x) |
+| Checkout | 2 (KAN-x, KAN-x) |
+
+Key defects:
+- Critical: problem_user cannot complete checkout because entered data is not retained (TC39).
+- Critical: error_user cannot add or remove items correctly (TC40).
+- Major: Checkout can be started and an order completed with an empty cart (TC26, TC27). Still open after retest.
+- Major: problem_user sees wrong product images (TC37) and sorting does not work (TC38).
+
+## 6. Requirements Coverage
+17 requirements, all 17 covered by at least one test case (100% coverage). Requirements with failed tests: REQ-05, REQ-06, REQ-08, REQ-10, REQ-12, REQ-17.
+
+## 7. Retest and Regression
+**Approach:** The site's code cannot be modified, so `standard_user` was used as the simulated "fixed build" and each defect's steps were re-run. This is a simulated fix verification, not a real developer fix.
+
+| Item | Result |
+|---|---|
+| Defects retested | 6 |
+| Closed (Pass) | 4 (TC37, TC38, TC39, TC40) |
+| Reopened (Fail) | 2 (TC26, TC27) |
+| Regression cases run | 6 of 40 (15%): 4 passed, 2 failed |
+
+The empty-cart defects were not user-specific, so they were reproduced as standard_user and remain open.
+
+## 8. Risks and Known Issues
+- Two Major defects (empty-cart checkout and order completion) remain open.
+- Regression covered only 6 of 40 cases, so unrelated regressions may be undetected.
+- Requirements were reverse-engineered because the site has no spec, so some expected results are assumptions (for example REQ-17).
+- `problem_user` and `error_user` bugs are built into the demo site, so the "fix" was simulated.
+- The public demo site may change over time.
+
+## 9. Lessons Learned and Recommendations
+- Running the same flows with different user types found more defects than standard_user alone.
+- Run the full regression suite after every fix, not just the failed cases.
+- Fix the empty-cart validation first, because it allows invalid orders.
+- Automate the regression suite in a later phase.
+
+## 10. Exit Criteria Check
+| Criterion | Met? |
+|---|---|
+| 100% of test cases executed | Yes |
+| All requirements covered | Yes |
+| No open Critical/High defects | No (2 Major defects open) |
+| Retest and regression completed | Partly (regression 15%) |
+
+**Recommendation: NOT ready for release.** The empty-cart defects (TC26, TC27) must be fixed and a full regression run before sign-off.
+
+Prepared by: Ravuri Mohana Gowri   Date: 23-Oct-2026
